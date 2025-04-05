@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.print.DocFlavor;
 import java.util.List;
 import java.util.UUID;
 
@@ -27,4 +28,15 @@ public class ParticipantService {
     public void triggerConfirmationEmailToParticipants(UUID tripId){
 
     };
+
+    public void triggerConfirmationEmailToParticipant(String email){
+
+    }
+
+    public ParticipantCreateResponse registerParticipantToEvent(String email, Trip trip){
+        Participants newParticipant = new Participants(email, trip);
+        this.repository.save(newParticipant);
+
+        return new ParticipantCreateResponse(newParticipant.getId());
+    }
 }

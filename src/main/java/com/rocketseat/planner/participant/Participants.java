@@ -29,7 +29,14 @@ public class Participants {
     @Column(nullable = false)
     private String email;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "trip_id", nullable = false)
     private Trip trip;
+
+    public Participants(String email, Trip trip) {
+        this.email = email;
+        this.trip = trip;
+        this.isConfirmedAt = false;
+        this.name = "";
+    }
 }

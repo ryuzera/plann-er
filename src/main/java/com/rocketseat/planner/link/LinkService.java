@@ -1,12 +1,10 @@
 package com.rocketseat.planner.link;
 
-import com.rocketseat.planner.activity.ActivityData;
 import com.rocketseat.planner.trip.Trip;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -25,7 +23,9 @@ public class LinkService {
         return new LinkResponse(newLink.getId());
     }
 
-    public List<ActivityData> getAllActivitiesFromId(UUID tripId) {
-        return new ArrayList<>();
+    public List<LinkData> getAllLinksFromId(UUID tripId) {
+        return this.linkRepository.findByTripId(tripId)
+                .stream()
+                .map(links -> new LinkData(links.getId(), links.getTitle(), links.getUrl())).toList();
     }
 }
